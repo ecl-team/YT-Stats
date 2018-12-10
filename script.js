@@ -52,6 +52,9 @@ class Video {
 	name() {
 		return videoJson("snippet", this)["items"][0]["snippet"]["title"];
 	}
+	channel() {
+		return new Channel(videoJson("snippet", this)["items"][0]["snippet"]["channelId"]);
+	}
 	views() {
 		return parseInt(videoJson("statistics", this)["items"][0]["statistics"]["viewCount"]);
 	}
@@ -60,6 +63,14 @@ class Video {
 	}
 	dislikes() {
 		return parseInt(videoJson("statistics", this)["items"][0]["statistics"]["dislikeCount"]);
+	}
+	likeRatio() {
+		var likeCount = parseInt(videoJson("statistics", this)["items"][0]["statistics"]["likeCount"]);
+		return likeCount / (likeCount + parseInt(videoJson("statistics", this)["items"][0]["statistics"]["dislikeCount"]));
+	}
+	dislikeRatio() {
+		var dislikeCount = parseInt(videoJson("statistics", this)["items"][0]["statistics"]["dislikeCount"]);
+		return dislikeCount / (dislikeCount + parseInt(videoJson("statistics", this)["items"][0]["statistics"]["likeCount"]));
 	}
 	comments() {
 		return parseInt(videoJson("statistics", this)["items"][0]["statistics"]["commentCount"]);
@@ -87,4 +98,19 @@ function stopLive(id) {
 			liveSources.splice(i, 1);
 		}
 	}
+}
+
+// interface code
+
+function AddChannel() {
+
+}
+function RemoveChannel() {
+
+}
+function AddVideo() {
+
+}
+function RemoveVideo() {
+
 }
