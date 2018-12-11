@@ -31,6 +31,15 @@ class Channel {
 			this.id = channel;
 		else
 			this.id = channelJsonFromName("snippet", channel)["items"][0]["id"];
+		this.lastData
+		this.events = [];
+		this.eventListener = setInterval(() => {
+			for (i = 0; i < events.length; i++) {
+				switch(this.events[i].event) {
+					case "subscription": break;
+				}
+			}
+		}, 500);
 	}
 	name() {
 		return channelJson("snippet", this)["items"][0]["snippet"]["title"];
@@ -43,6 +52,12 @@ class Channel {
 	}
 	uploads() {
 		return parseInt(channelJson("statistics", this)["items"][0]["statistics"]["videoCount"]);
+	}
+	on(event, func) {
+		this.events.push({
+			event: event,
+			func: func
+		});
 	}
 }
 class Video {
